@@ -54,16 +54,30 @@ $(document).on("click", "button", function()
         console.log(response);
         var results = response.data;
 
-        var sepDiv = $("<div>");
-
+        var sepDiv = $(`<tr id="gifPB">`);
         for (var i = 0; i < results.length; i++) 
         {
+
+            var row = $("<td>")
+
             var p = $("<p>").text("Rating: " + results[i].rating);
             var animalImage = $(`<img src= ${results[i].images.fixed_height.url} data-still=${results[i].images.original_still.url} data-animate= ${results[i].images.fixed_height.url} data-state=animate class=gif>`);
-            sepDiv.append(p, animalImage);
-        }
+            row.append(p, animalImage);
 
-        $("#gStorage").prepend(sepDiv);
+            if(i % 3 === 0 )
+            {
+                sepDiv = new $(`<tr id="gifPB">`);
+
+                console.log(i, i %3);
+            }
+            sepDiv.append(row);
+            $("#gStorage").append(sepDiv);
+
+
+        }
+        // sepDiv.append(row);
+
+
          
          
     });
